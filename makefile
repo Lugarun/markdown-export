@@ -12,10 +12,7 @@ all: $(patsubst %.md,%.pdf,$(wildcard *.md))
 
 # make watch WATCHMAKE=ece606.pdf
 watch:
-	while true; do \
-		make $(WATCHMAKE); \
-		inotifywait -qre close_write .;\
-	done
+	ls *.md | entr makelatex $(WATCHMAKE)
 	
 clean:
 	find . -regextype grep -regex '.*/*\.\(aux\|log\|out\|nav\|out\|toc\|vrb\)' -delete
